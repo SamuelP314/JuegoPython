@@ -1,5 +1,7 @@
 class Personaje:
-    """Clase Padre (Superclase). Define lo básico que todo personaje tiene."""
+
+
+#DEFINICION PERSONAJE
 
     def __init__(self, canvas, x, y):
         self.canvas = canvas
@@ -9,9 +11,11 @@ class Personaje:
         self.color = "gray"  # Color por defecto
         self.id_dibujo = None  # Referencia al dibujo en el canvas
 
+
+#DIBUJAR PERSONAJE
+
     def dibujar(self):
-        """Método para visualizar el objeto en la pantalla."""
-        radio = 20
+        radio = 15
         x1, y1 = self.x - radio, self.y - radio
         x2, y2 = self.x + radio, self.y + radio
 
@@ -20,4 +24,11 @@ class Personaje:
         # Dibuja el nombre encima
         self.canvas.create_text(self.x, self.y - 30, font=("Arial", 10, "bold"))
 
-    def movimiento(self):
+
+#MOVIMIENTO PERSONAJE
+
+    def mover(self, MovimientoX, MovimientoY):
+        self.canvas.move(self.id_dibujo, MovimientoX, MovimientoY)
+        self.x = self.x + MovimientoX
+        self.y = self.y + MovimientoY
+
