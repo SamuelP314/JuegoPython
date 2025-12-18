@@ -14,7 +14,7 @@ frame_control.pack(fill=tk.X)
 escenario_canvas = tk.Canvas(ventana, width=768, height=512, bg="#00a310")
 escenario_canvas.pack(fill=tk.BOTH, expand=True)
 
-imagen_original = Image.open("Assets/ImgFondo.png")
+imagen_original = Image.open("Assets/bocadillo-lomo (1).jpg")
 imagen_redimensionada = imagen_original.resize((768, 512))
 fondo_img = ImageTk.PhotoImage(imagen_redimensionada)
 escenario_canvas.create_image(0, 0, image=fondo_img, anchor="nw")
@@ -57,7 +57,7 @@ def key_press(event):
 def key_release(event):
     teclas_presionadas.discard(event.keysym.lower())
 
-Velocidad = 35 #Son los ms en los que se recoge el input en ventana.after, cuanto menor es el delay, más rápido va.
+Velocidad = 3 #Son los ms en los que se recoge el input en ventana.after, cuanto menor es el delay, más rápido va.
 
 def mover_personaje():
     if personaje is None:
@@ -65,14 +65,15 @@ def mover_personaje():
         return
     MovimientoX = 0
     MovimientoY = 0
-    if "w" in teclas_presionadas or "up" in teclas_presionadas:
-        MovimientoY = MovimientoY - 10
-    if "s" in teclas_presionadas or "down" in teclas_presionadas:
-        MovimientoY = MovimientoY + 10
-    if "a" in teclas_presionadas or "left" in teclas_presionadas:
-        MovimientoX = MovimientoX - 10
-    if "d" in teclas_presionadas or "right" in teclas_presionadas:
-        MovimientoX = MovimientoX + 10
+
+    if ("w" in teclas_presionadas or "up" in teclas_presionadas) and personaje.y != 10:
+        MovimientoY = MovimientoY - 1
+    if ("s" in teclas_presionadas or "down" in teclas_presionadas) and personaje.y != 502:
+        MovimientoY = MovimientoY + 1
+    if ("a" in teclas_presionadas or "left" in teclas_presionadas) and personaje.x != 10:
+        MovimientoX = MovimientoX - 1
+    if ("d" in teclas_presionadas or "right" in teclas_presionadas) and personaje.x != 758:
+        MovimientoX = MovimientoX + 1
     if MovimientoX != 0 or MovimientoY != 0:
         personaje.mover(MovimientoX, MovimientoY)
     ventana.after(Velocidad, mover_personaje)
