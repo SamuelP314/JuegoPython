@@ -2,6 +2,7 @@ import tkinter as tk
 import random
 from PIL import Image, ImageTk
 from Personaje import Personaje
+from Proyectil import Proyectil
 
 
 #VENTANA
@@ -41,6 +42,8 @@ def funcionBotonInicio():
     frame_control.pack_forget()
     crear_personaje()
     mover_personaje()
+    mover_proyectiles()
+    generar_proyectiles()
     frame_control.config(height=0)
 
 
@@ -57,7 +60,7 @@ def key_press(event):
 def key_release(event):
     teclas_presionadas.discard(event.keysym.lower())
 
-Velocidad = 35 #Son los ms en los que se recoge el input en ventana.after, cuanto menor es el delay, más rápido va.
+Velocidad = 3 #Son los ms en los que se recoge el input en ventana.after, cuanto menor es el delay, más rápido va.
 
 def mover_personaje():
     if personaje is None:
@@ -65,19 +68,71 @@ def mover_personaje():
         return
     MovimientoX = 0
     MovimientoY = 0
-    if "w" in teclas_presionadas or "up" in teclas_presionadas:
-        MovimientoY = MovimientoY - 10
-    if "s" in teclas_presionadas or "down" in teclas_presionadas:
-        MovimientoY = MovimientoY + 10
-    if "a" in teclas_presionadas or "left" in teclas_presionadas:
-        MovimientoX = MovimientoX - 10
-    if "d" in teclas_presionadas or "right" in teclas_presionadas:
-        MovimientoX = MovimientoX + 10
+
+    if ("w" in teclas_presionadas or "up" in teclas_presionadas) and personaje.y != 10:
+        MovimientoY = MovimientoY - 1
+    if ("s" in teclas_presionadas or "down" in teclas_presionadas) and personaje.y != 502:
+        MovimientoY = MovimientoY + 1
+    if ("a" in teclas_presionadas or "left" in teclas_presionadas) and personaje.x != 10:
+        MovimientoX = MovimientoX - 1
+    if ("d" in teclas_presionadas or "right" in teclas_presionadas) and personaje.x != 758:
+        MovimientoX = MovimientoX + 1
     if MovimientoX != 0 or MovimientoY != 0:
         personaje.mover(MovimientoX, MovimientoY)
     ventana.after(Velocidad, mover_personaje)
 
 ventana.bind("<KeyPress>", key_press)
 ventana.bind("<KeyRelease>", key_release)
+
+
+#PROYECTIL
+proyectiles = []
+
+def crear_proyectil():
+    lado = random.choice(["arriba", "abajo", "izquierda", "derecha"])
+
+    if lado == "arriba":
+        x = random.randint(0, 768)
+        y = -20
+        MovimientoX, MovimientoY = 0, 2
+
+    elif lado == "abajo":
+        x = random.randint(0, 768)
+        y = 532
+        MovimientoX, MovimientoY = 0, -2
+
+    elif lado == "izquierda":
+        x = -20
+        y = random.randint(0, 512)
+        MovimientoX, MovimientoY = 2, 0
+
+    else:
+        x = 788
+        y = random.randint(0, 512)
+        MovimientoX, MovimientoY = -2, 0
+
+    proyectil = Proyectil(escenario_canvas, x, y)
+    proyectil.dibujar()
+    proyectiles.append((proyectil, MovimientoX, MovimientoY))
+
+def mover_proyectiles():
+    for proyectil, MovimientoX, MovimientoY in proyectiles[:]:
+        proyectil.mover(MovimientoX, MovimientoY)
+
+        if personaje.x < -30 or personaje.x > 800 or personaje.y < -30 or personaje.y > 550:
+            escenario_canvas.delete(proyectil.id_dibujo)
+            proyectiles.remove((proyectil, MovimientoX, MovimientoY))
+
+    Vel_proyectil = 20
+    ventana.after(Vel_proyectil, mover_proyectiles)
+
+def generar_proyectiles():
+    crear_proyectil()
+    Vel_generacion = 200
+    ventana.after(Vel_generacion, generar_proyectiles)
+
+
+ventana.mainloop()
+
 
 ventana.mainloop()
