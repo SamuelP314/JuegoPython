@@ -1,7 +1,7 @@
 class Proyectil:
 
 
-#DEFINICION Proyectil
+# ---------------- DEFINICION PROYECTIL ----------------
 
     def __init__(self, canvas, x, y):
         self.canvas = canvas
@@ -12,7 +12,7 @@ class Proyectil:
         self.id_dibujo = None  # Referencia al dibujo en el canvas
 
 
-#DIBUJAR PERSONAJE
+# ---------------- DIBUJAR PERSONAJE ----------------
 
     def dibujar(self):
         radio = 10
@@ -25,7 +25,7 @@ class Proyectil:
         self.canvas.create_text(self.x, self.y - 30, font=("Arial", 10, "bold"))
 
 
-#MOVIMIENTO PROYECTIL
+# ---------------- MOVIMIENTO PROYECTIL ----------------
 
     def mover(self, MovimientoX, MovimientoY):
         self.canvas.move(self.id_dibujo, MovimientoX, MovimientoY)

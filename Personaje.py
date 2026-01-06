@@ -1,19 +1,14 @@
 class Personaje:
 
-
-#DEFINICION PERSONAJE
-
+    # ---------------- DEFINICION PERSONAJE ----------------
     def __init__(self, canvas, x, y):
         self.canvas = canvas
-        # Atributos encapsulados (datos del objeto)
         self.x = x
         self.y = y
         self.color = "gray"  # Color por defecto
         self.id_dibujo = None  # Referencia al dibujo en el canvas
 
-
-#DIBUJAR PERSONAJE
-
+    # ---------------- DIBUJAR PERSONAJE ----------------
     def dibujar(self):
         radio = 15
         x1, y1 = self.x - radio, self.y - radio
@@ -24,11 +19,14 @@ class Personaje:
         # Dibuja el nombre encima
         self.canvas.create_text(self.x, self.y - 30, font=("Arial", 10, "bold"))
 
-
-#MOVIMIENTO PERSONAJE
-
+    # ---------------- MOVIMIENTO PERSONAJE ----------------
     def mover(self, MovimientoX, MovimientoY):
         self.canvas.move(self.id_dibujo, MovimientoX, MovimientoY)
         self.x = self.x + MovimientoX
         self.y = self.y + MovimientoY
 
+    # ---------------- COLISIONES ----------------
+    def colisiona(self, proyectil):
+        dx = abs(self.x - proyectil.x)
+        dy = abs(self.y - proyectil.y)
+        return dx < 25 and dy < 25

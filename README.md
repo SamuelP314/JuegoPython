@@ -1,2 +1,2 @@
 # JuegoPython
-Un jueguito básico. Aún no sé muy bien lo que quiero hacer.
+Un jueguito básico, estilo bullet hell.
