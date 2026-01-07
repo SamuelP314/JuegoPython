@@ -14,10 +14,7 @@ class Personaje:
         x1, y1 = self.x - radio, self.y - radio
         x2, y2 = self.x + radio, self.y + radio
 
-        # Dibuja el círculo
         self.id_dibujo = self.canvas.create_oval(x1, y1, x2, y2, fill=self.color, outline="black")
-        # Dibuja el nombre encima
-        self.canvas.create_text(self.x, self.y - 30, font=("Arial", 10, "bold"))
 
     # ---------------- MOVIMIENTO PERSONAJE ----------------
     def mover(self, MovimientoX, MovimientoY):
