@@ -5,8 +5,8 @@ class Personaje:
         self.canvas = canvas
         self.x = x
         self.y = y
-        self.color = "gray"  # Color por defecto
-        self.id_dibujo = None  # Referencia al dibujo en el canvas
+        self.color = "gray"
+        self.id_dibujo = None
 
     # ---------------- DIBUJAR PERSONAJE ----------------
     def dibujar(self):

@@ -60,7 +60,7 @@ def actualizar_temporizador():
 
 
 # ---------------- VELOCIDADES ----------------
-velocidad = 3  # ms entre cada actualización del personaje
+velocidad = 3  # ms entre cada actualización del personaje (Al parecer al probar en un ordenador distinto la v cambia. Instituto:8 = Casa:3)
 vel_proyectil = 20  # ms entre cada movimiento de proyectiles
 
 
